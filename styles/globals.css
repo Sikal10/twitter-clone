@@ -6,4 +6,8 @@
     .sidebar-options {
         @apply flex items-center gap-2 px-5 py-3 rounded-full hover:bg-gray-100 cursor-pointer transition-all duration-200 max-w-fit
     }
+
+    .sidebar-text {
+        @apply hidden md:inline-flex text-base font-light lg:text-xl
+    }
 }
