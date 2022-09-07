@@ -9,7 +9,7 @@ const SidebarOptions = ({Icon, title}: Props) => {
     return (
         <div className={"sidebar-options group"}>
             <Icon className={"h-6 w-6 "} />
-            <p className={"group-hover:text-twitter"}>{title}</p>
+            <p className={"sidebar-text group-hover:text-twitter"}>{title}</p>
         </div>
     );
 };
