@@ -1,7 +1,13 @@
 import {HiOutlineRefresh} from "react-icons/hi";
 import TweetBox from "./TweetBox";
+import {Tweet} from "../typings";
+import TweetComponent from "../components/Tweet";
 
-const Feed = () => {
+interface Props {
+    tweets: Tweet[]
+}
+
+const Feed = ({tweets}: Props) => {
     return (
         <div className={"col-span-7 lg:col-span-5 border-x "}>
             <div className={"flex justify-between items-center"}>
@@ -12,6 +18,10 @@ const Feed = () => {
 
             <div>
                 <TweetBox />
+            </div>
+
+            <div>
+                {tweets.map((tweet) => <TweetComponent key={tweet._id} tweet={tweet} />)}
             </div>
         </div>
     );
