@@ -10,14 +10,14 @@ const TweetBox = () => {
 
     return (
         <div className={"flex space-x-2 p-5"}>
-            <img className={"mt-4 h-14 w-14 object-cover rounded-full"} src="https://links.papareact.com/gll" alt=""/>
+            <img className={"mt-4 h-10 w-10 md:h-14 md:w-14 object-cover rounded-full"} src="https://links.papareact.com/gll" alt=""/>
 
             <div className={"flex flex-1 items-center pl-2"}>
                 <form className={"flex flex-col flex-1"} action="">
-                    <input value={tweet} onChange={e => setTweet(e.target.value)} type="text" className={"h-24 w-full text-xl outline-0 placeholder:text-xl"} placeholder={"What's happening?"}/>
+                    <input value={tweet} onChange={e => setTweet(e.target.value)} type="text" className={"h-24 w-full text-xl outline-0 placeholder:text-base md:placeholder:text-xl"} placeholder={"What's happening?"}/>
 
                     <div className={"flex items-center"}>
-                        <div className={"flex flex-1 gap-2 text-twitter"}>
+                        <div className={"flex flex-1 gap-1 sm:gap-2 text-twitter"}>
                             <MdOutlineInsertPhoto className={"text-2xl cursor-pointer transition-transform duration-150 ease-out hover:scale-150"} />
                             <BiPoll className={"text-2xl"} />
                             <HiOutlineEmojiHappy className={"text-2xl"} />
