@@ -18,7 +18,7 @@ export type CommentBody = {
     tweetId: string
     username: string
     profileImg: string
-    text: string
+    comment: string
 }
 
 export interface Comment extends CommentBody {

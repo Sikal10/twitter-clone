@@ -31,11 +31,13 @@ const Tweet = ({tweet}: Props) => {
 
     const sendComments = async () => {
         const commentInfo: CommentBody = {
-            text: comment,
+            comment: comment,
             username: session?.user?.name || "Unknown User",
             profileImg: session?.user?.image || "https://pbs.twimg.com/media/FN5VfLLXoAYpdOE?format=jpg&name=large",
             tweetId: tweet._id
         }
+
+        const commentToast = toast.loading('Posting Comment...');
 
         const result = await fetch(`/api/addComment`, {
             body: JSON.stringify(commentInfo),
@@ -48,7 +50,7 @@ const Tweet = ({tweet}: Props) => {
         setComments(newComments);
 
         toast("Comment Added", {
-            icon: "🚀"
+            id: commentToast
         });
 
         return json
@@ -61,6 +63,7 @@ const Tweet = ({tweet}: Props) => {
         await sendComments();
         setComment("");
         setCommentBoxVisible(false);
+        await reFetchComments();
     }
 
     return (
@@ -131,7 +134,7 @@ const Tweet = ({tweet}: Props) => {
                                 <TimeAgo date={comment._createdAt} className={"text-xs text-gray-500"}/>
                             </div>
 
-                            <p className={"dark:text-[#e7e9ea]"}>{comment?.text}</p>
+                            <p className={"dark:text-[#e7e9ea]"}>{comment?.comment}</p>
 
                         </div>
                     </div>)}

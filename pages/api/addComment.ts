@@ -4,7 +4,7 @@ import {CommentBody} from "../../typings";
 import axios from "axios";
 
 type Data = {
-    name: string
+    message: string
 }
 
 export default async function handler(
@@ -19,7 +19,7 @@ export default async function handler(
             {
                 create: {
                     _type: "comment",
-                    text: comment.text,
+                    comment: comment.comment,
                     username: comment.username,
                     profileImg: comment.profileImg,
                     tweet: {
