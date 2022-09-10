@@ -8,8 +8,8 @@ interface Props {
 const SidebarOptions = ({Icon, title}: Props) => {
     return (
         <div className={"sidebar-options group"}>
-            <Icon className={"h-6 w-6 text-gray-600"} />
-            <p className={"sidebar-text group-hover:text-twitter"}>{title}</p>
+            <Icon className={"sidebar-icon"} />
+            <p className={"sidebar-text group-hover:text-twitter dark:group-hover:text-[#e7e9ea]"}>{title}</p>
         </div>
     );
 };

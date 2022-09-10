@@ -14,7 +14,7 @@ interface Props {
 const Home = ({tweets}: Props) => {
 
   return (
-      <div className={""}>
+      <div className={"dark:bg-black"}>
           <div className={"lg:max-w-6xl mx-auto max-h-screen overflow-hidden"}>
               <Head>
                   <title>Twitter 2.0</title>
@@ -23,7 +23,7 @@ const Home = ({tweets}: Props) => {
               </Head>
               <Toaster />
 
-              <main className={"grid grid-cols-9 "}>
+              <main className={"grid grid-cols-9"}>
                   <Sidebar />
 
                   <Feed tweets={tweets} />

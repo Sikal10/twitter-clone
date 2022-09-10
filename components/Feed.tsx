@@ -23,9 +23,9 @@ const Feed = ({tweets: tweetsProp}: Props) => {
     }
 
     return (
-        <div className={"col-span-7 lg:col-span-5 border-x max-h-screen overflow-scroll"}>
+        <div className={"col-span-7 lg:col-span-5 border-x dark:border-gray-800 max-h-screen overflow-scroll"}>
             <div className={"flex justify-between items-center"}>
-                <h1 className={"p-5 pb-0 text-xl font-bold"}>Home</h1>
+                <h1 className={"p-5 pb-0 text-xl font-bold dark:text-[#e7e9ea]"}>Home</h1>
 
                 <HiOutlineRefresh onClick={handleRefresh} className={"h-6 w-6 md:h-8 md:w-8 mt-5 mr-5 cursor-pointer text-twitter transition-all duration-500 ease-out active:scale-125 hover:rotate-180"}/>
             </div>

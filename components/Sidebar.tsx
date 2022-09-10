@@ -3,8 +3,16 @@ import {RiHome4Line, RiHashtag, RiFileList3Line} from "react-icons/ri";
 import {HiOutlineBell} from "react-icons/hi";
 import {MdMailOutline, MdBookmarkBorder} from "react-icons/md";
 import {IoEllipsisHorizontalCircle, IoPersonOutline} from "react-icons/io5";
+import {CgDarkMode} from "react-icons/cg";
+import useDarkMode from "../hooks/useDarkMode";
+
+//#16181c
+//#202327
+//
 
 const Sidebar = () => {
+    const [darkMode, setDarkMode] = useDarkMode();
+
     return (
         <div className={"col-span-2 flex flex-col items-center px-5 md:items-start"}>
             <img className={"w-10 h-10 ml-4 mt-2"} src="https://links.papareact.com/drq" alt=""/>
@@ -19,6 +27,11 @@ const Sidebar = () => {
             <SidebarOptions Icon={IoEllipsisHorizontalCircle} title={"More"}/>
 
             {/* ----- Dark Mode------- */}
+
+            <div onClick={() => setDarkMode(!darkMode)} className={"sidebar-options"}>
+                <CgDarkMode className={"sidebar-icon"} />
+                <p className={"sidebar-text"}>{darkMode ? "Light Mode" : "Dark Mode"}</p>
+            </div>
 
         </div>
     );

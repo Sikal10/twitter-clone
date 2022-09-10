@@ -4,15 +4,12 @@ import {HiOutlineEmojiHappy} from "react-icons/hi";
 import {BiPoll} from "react-icons/bi";
 import React, {Dispatch, SetStateAction, useRef, useState} from "react";
 import {Tweet, TweetBody} from "../typings";
-import axios from "axios";
 import toast from "react-hot-toast";
 import {fetchTweets} from "../utils";
 
 interface Props {
     setTweets: Dispatch<SetStateAction<Tweet[]>>
 }
-
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const TweetBox = ({setTweets}: Props) => {
     const [tweet, setTweet] = useState<string>("");
@@ -71,9 +68,9 @@ const TweetBox = ({setTweets}: Props) => {
 
             <div className={"flex flex-1 items-center pl-2"}>
                 <form className={"flex flex-col flex-1"} action="">
-                    <input value={tweet} onChange={e => setTweet(e.target.value)} type="text" className={"h-24 w-full text-xl outline-0 placeholder:text-base md:placeholder:text-xl"} placeholder={"What's happening?"}/>
+                    <input value={tweet} onChange={e => setTweet(e.target.value)} type="text" className={"tweet-input"} placeholder={"What's happening?"}/>
 
-                    <div className={"flex items-center"}>
+                    <div className={"flex items-center border-y dark:border-gray-800 py-2"}>
                         <div className={"flex flex-1 gap-1 sm:gap-2 text-twitter"}>
                             <MdOutlineInsertPhoto onClick={() => setIsImageBoxOpen(!isImageBoxOpen)} className={"text-2xl cursor-pointer transition-transform duration-150 ease-out hover:scale-150"} />
                             <BiPoll className={"text-2xl"} />

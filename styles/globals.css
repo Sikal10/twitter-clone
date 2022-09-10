@@ -1,13 +1,26 @@
+::-webkit-scrollbar {
+    display: none;
+    background: rgba(0, 0, 0, 0.55);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
     .sidebar-options {
-        @apply flex items-center gap-2 px-5 py-3 rounded-full hover:bg-gray-100 cursor-pointer transition-all duration-200 max-w-fit
+        @apply flex items-center gap-2 px-5 py-3 rounded-full hover:bg-gray-100 cursor-pointer transition-all duration-200 max-w-fit dark:hover:bg-[#222]
+    }
+
+    .sidebar-icon {
+        @apply h-6 w-6 text-gray-600 dark:text-[#e7e9ea]
     }
 
     .sidebar-text {
-        @apply hidden md:inline-flex text-base text-gray-600 font-normal lg:text-lg
+        @apply hidden md:inline-flex text-base text-gray-600 font-normal lg:text-lg dark:text-[#e7e9ea]
+    }
+
+    .tweet-input {
+        @apply h-24 w-full text-xl outline-0 placeholder:text-base md:placeholder:text-lg bg-transparent dark:text-[#e7e9ea] dark:placeholder:text-[#e7e9ea]
     }
 }
