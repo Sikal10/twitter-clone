@@ -23,4 +23,8 @@
     .tweet-input {
         @apply h-24 w-full text-xl outline-0 placeholder:text-base md:placeholder:text-lg bg-transparent dark:text-[#e7e9ea] dark:placeholder:text-[#e7e9ea]
     }
+
+    .tweet-button {
+        @apply bg-twitter text-white px-5 py-2 font-bold rounded-full disabled:opacity-40 disabled:cursor-not-allowed
+    }
 }

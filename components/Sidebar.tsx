@@ -5,13 +5,12 @@ import {MdMailOutline, MdBookmarkBorder} from "react-icons/md";
 import {IoEllipsisHorizontalCircle, IoPersonOutline} from "react-icons/io5";
 import {CgDarkMode} from "react-icons/cg";
 import useDarkMode from "../hooks/useDarkMode";
-
-//#16181c
-//#202327
-//
+import {signIn, signOut, useSession} from "next-auth/react";
 
 const Sidebar = () => {
     const [darkMode, setDarkMode] = useDarkMode();
+
+    const {data: session} = useSession();
 
     return (
         <div className={"col-span-2 flex flex-col items-center px-5 md:items-start"}>
@@ -23,7 +22,7 @@ const Sidebar = () => {
             <SidebarOptions Icon={MdMailOutline} title={"Messages"}/>
             <SidebarOptions Icon={MdBookmarkBorder} title={"Bookmarks"}/>
             <SidebarOptions Icon={RiFileList3Line} title={"Lists"}/>
-            <SidebarOptions Icon={IoPersonOutline} title={"Profile"}/>
+            <SidebarOptions onClick={session ? signOut : signIn} Icon={IoPersonOutline} title={session ? "Sign Out" : "Sign In"}/>
             <SidebarOptions Icon={IoEllipsisHorizontalCircle} title={"More"}/>
 
             {/* ----- Dark Mode------- */}

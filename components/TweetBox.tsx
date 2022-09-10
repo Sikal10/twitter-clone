@@ -6,6 +6,7 @@ import React, {Dispatch, SetStateAction, useRef, useState} from "react";
 import {Tweet, TweetBody} from "../typings";
 import toast from "react-hot-toast";
 import {fetchTweets} from "../utils";
+import {useSession} from "next-auth/react";
 
 interface Props {
     setTweets: Dispatch<SetStateAction<Tweet[]>>
@@ -15,6 +16,8 @@ const TweetBox = ({setTweets}: Props) => {
     const [tweet, setTweet] = useState<string>("");
     const [image, setImage] = useState<string>("");
     const [isImageBoxOpen, setIsImageBoxOpen] = useState<boolean>(false);
+
+    const {data: session} = useSession();
 
     const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,8 +34,8 @@ const TweetBox = ({setTweets}: Props) => {
     const postTweet = async () => {
         const tweetInfo: TweetBody = {
             text: tweet,
-            username: "sikal",
-            profileImg: "https://pbs.twimg.com/media/FN5VfLLXoAYpdOE?format=jpg&name=large",
+            username: session?.user?.name || "Unknown User",
+            profileImg: session?.user?.image || "https://pbs.twimg.com/media/FN5VfLLXoAYpdOE?format=jpg&name=large",
             image
         }
 
@@ -64,7 +67,7 @@ const TweetBox = ({setTweets}: Props) => {
 
     return (
         <div className={"flex space-x-2 p-5"}>
-            <img className={"mt-4 h-10 w-10 md:h-14 md:w-14 object-cover rounded-full"} src="https://links.papareact.com/gll" alt=""/>
+            <img className={"mt-4 h-10 w-10 md:h-14 md:w-14 object-cover rounded-full"} src={session?.user?.image || "https://links.papareact.com/gll"} alt=""/>
 
             <div className={"flex flex-1 items-center pl-2"}>
                 <form className={"flex flex-col flex-1"} action="">
@@ -79,7 +82,7 @@ const TweetBox = ({setTweets}: Props) => {
                             <MdOutlineLocationOn className={"text-2xl"} />
                         </div>
 
-                        <button onClick={handleSubmitTweet} disabled={!tweet} className={"bg-twitter text-white px-5 py-2 font-bold rounded-full disabled:opacity-40 disabled:cursor-not-allowed"}>Tweet</button>
+                        <button onClick={handleSubmitTweet} disabled={!tweet || !session} className={"tweet-button"}>Tweet</button>
                     </div>
 
                     {/*image-url-box*/}
