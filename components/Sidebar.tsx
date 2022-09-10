@@ -12,6 +12,13 @@ const Sidebar = () => {
 
     const {data: session} = useSession();
 
+    const toggleTheme = () => {
+        const theme = localStorage.getItem("darkMode");
+        if (theme) {
+
+        }
+    }
+
     return (
         <div className={"col-span-2 flex flex-col items-center px-5 md:items-start"}>
             <img className={"w-10 h-10 ml-4 mt-2"} src="https://links.papareact.com/drq" alt=""/>

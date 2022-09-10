@@ -20,11 +20,27 @@
         @apply hidden md:inline-flex text-base text-gray-600 font-normal lg:text-lg dark:text-[#e7e9ea]
     }
 
+    .photo-icon {
+        @apply text-2xl cursor-pointer transition-transform duration-150 ease-out hover:scale-150
+    }
+
     .tweet-input {
         @apply h-24 w-full text-xl outline-0 placeholder:text-base md:placeholder:text-lg bg-transparent dark:text-[#e7e9ea] dark:placeholder:text-[#e7e9ea]
     }
 
     .tweet-button {
         @apply bg-twitter text-white px-5 py-2 font-bold rounded-full disabled:opacity-40 disabled:cursor-not-allowed
+    }
+
+    .tweet-image {
+        @apply m-5 ml-0 mb-1 md:max-w-[400px] md:w-[400px] md:h-[350px] rounded-lg object-cover shadow-sm
+    }
+
+    .comment-input {
+        @apply rounded-lg bg-transparent p-2 flex-1 outline-0 dark:text-[#e7e9ea] dark:placeholder:text-[#e7e9ea]
+    }
+
+    .comment-btn {
+        @apply text-twitter disabled:text-gray-200 disabled:cursor-not-allowed
     }
 }

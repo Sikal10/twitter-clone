@@ -75,7 +75,7 @@ const TweetBox = ({setTweets}: Props) => {
 
                     <div className={"flex items-center border-y dark:border-gray-800 py-2"}>
                         <div className={"flex flex-1 gap-1 sm:gap-2 text-twitter"}>
-                            <MdOutlineInsertPhoto onClick={() => setIsImageBoxOpen(!isImageBoxOpen)} className={"text-2xl cursor-pointer transition-transform duration-150 ease-out hover:scale-150"} />
+                            <MdOutlineInsertPhoto onClick={() => setIsImageBoxOpen(!isImageBoxOpen)} className={"photo-icon"} />
                             <BiPoll className={"text-2xl"} />
                             <HiOutlineEmojiHappy className={"text-2xl"} />
                             <TbCalendarStats className={"text-2xl"} />
@@ -86,7 +86,6 @@ const TweetBox = ({setTweets}: Props) => {
                     </div>
 
                     {/*image-url-box*/}
-
                     {isImageBoxOpen && <form className={"border-none mt-5 flex rounded-lg bg-twitter/30 py-2 px-4 "}>
                         <input ref={imageInputRef} className={"flex-1 bg-transparent p-2 text-twitter outline-0 placeholder:text-twitter"} type="text" placeholder={"Enter IMAGE URL..."}/>
                         <button onClick={addImageToTweet} type={"submit"} className={"font-semibold text-twitter"}>Add Image</button>

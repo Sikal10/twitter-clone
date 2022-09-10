@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Tweet, Comment} from "../typings";
+import {Tweet, Comment, CommentBody} from "../typings";
 import TimeAgo from "react-timeago";
 import { HiOutlineHeart} from "react-icons/hi";
 import {RiChat1Line} from "react-icons/ri";
 import {AiOutlineRetweet} from "react-icons/ai";
 import {MdOutlineFileUpload} from "react-icons/md";
-import {fetchComments} from "../utils";
+import {fetchComments, fetchTweets} from "../utils";
+import {session} from "next-auth/core/routes";
+import {useSession} from "next-auth/react";
+import toast from "react-hot-toast";
 
 interface Props {
     tweet: Tweet
@@ -13,6 +16,9 @@ interface Props {
 
 const Tweet = ({tweet}: Props) => {
     const [comments, setComments] = useState<Comment[]>([]);
+    const [commentBoxVisible, setCommentBoxVisible] = useState<boolean>(false);
+    const [comment, setComment] = useState<string>("");
+    const {data: session} = useSession();
 
     const reFetchComments = async () => {
         const comments: Comment[] = await fetchComments(tweet?._id);
@@ -22,6 +28,40 @@ const Tweet = ({tweet}: Props) => {
     useEffect(() => {
         reFetchComments();
     }, []);
+
+    const sendComments = async () => {
+        const commentInfo: CommentBody = {
+            text: comment,
+            username: session?.user?.name || "Unknown User",
+            profileImg: session?.user?.image || "https://pbs.twimg.com/media/FN5VfLLXoAYpdOE?format=jpg&name=large",
+            tweetId: tweet._id
+        }
+
+        const result = await fetch(`/api/addComment`, {
+            body: JSON.stringify(commentInfo),
+            method: "POST"
+        });
+
+        const json = await result.json();
+
+        const newComments = await fetchComments(tweet._id);
+        setComments(newComments);
+
+        toast("Comment Added", {
+            icon: "🚀"
+        });
+
+        return json
+
+    }
+
+    const handleCommentSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+
+        await sendComments();
+        setComment("");
+        setCommentBoxVisible(false);
+    }
 
     return (
         <div className={"border-y dark:border-gray-800 border-gray-100 p-5"}>
@@ -39,47 +79,59 @@ const Tweet = ({tweet}: Props) => {
 
                     <p className={"mt-2 mb-3 dark:text-[#e7e9ea]"}>{tweet?.text}</p>
 
-                    {tweet?.image && <img className={"m-5 ml-0 mb-1 md:max-w-[400px] md:w-[400px] md:h-[350px] rounded-lg object-cover shadow-sm"} src={tweet.image} alt=""/>}
+                    {tweet?.image && <img className={"tweet-image"} src={tweet.image} alt=""/>}
                 </div>
 
             </div>
 
             <div className={"max-w-[425px] ml-16 mt-2 flex justify-between"}>
                 <div className={"flex items-center cursor-pointer text-gray-400 gap-2"}>
-                    <RiChat1Line />
-                    <span>2</span>
+                    <RiChat1Line onClick={() => session && setCommentBoxVisible(!commentBoxVisible)} />
+                    <span>{comments?.length}</span>
                 </div>
 
                 <div className={"flex items-center cursor-pointer text-gray-400 gap-2"}>
                     <AiOutlineRetweet />
-                    <span>2</span>
+                    <span>0</span>
                 </div>
 
                 <div className={"flex items-center cursor-pointer text-gray-400 gap-2"}>
                     <HiOutlineHeart />
-                    <span>2</span>
+                    <span>0</span>
                 </div>
 
                 <div className={"flex items-center cursor-pointer text-gray-400 gap-2"}>
-                    <MdOutlineFileUpload /><span>2</span>
+                    <MdOutlineFileUpload /><span>0</span>
                 </div>
             </div>
 
+            {/*------comment box-------*/}
+            {commentBoxVisible && (
+                <div className={"ml-16"}>
+                    <form className={"flex gap-3 mt-3 py-2 px-4 border-y  dark:border-gray-800"}>
+                        <input value={comment} onChange={e => setComment(e.target.value)} className={"comment-input"} type="text" placeholder={"Write a comment..."}/>
+
+                        <button onClick={handleCommentSubmit} type={"submit"} disabled={!comment} className={"comment-btn"}>Post</button>
+                    </form>
+                </div>
+            )}
+
+            {/*-----comments--------*/}
             {comments?.length > 0 && (
-                <div className={"space-y-3 ml-16 mt-6 border-t border-gray-100 p-5"}>
+                <div className={"space-y-3 ml-16 mt-6 border-t border-gray-100 dark:border-gray-600 p-5"}>
                     {comments.map((comment, index, arr) => <div className={"flex gap-2 relative"} key={comment._id}>
-                        {index !== arr.length - 1 && <hr className={"absolute left-4 top-8 h-8 border-x border-twitter/30 "}/>}
+                        {index !== arr.length - 1 && <hr className={"absolute left-4 top-8 h-8 border-x  border-twitter/30 "}/>}
 
                         <img src={comment.profileImg} className={"w-8 h-8 rounded-full"} alt=""/>
 
                         <div>
-                            <div className={"flex items-center"}>
-                                <h2>{comment.username}</h2>
+                            <div className={"flex items-center gap-1"}>
+                                <h2 className={"dark:text-[#e7e9ea]"}>{comment.username}</h2>
                                 <p className={"hidden sm:inline text-gray-400 text-xs"}>@{comment.username.replace(/\s+/g, "").toLowerCase()} · </p>
                                 <TimeAgo date={comment._createdAt} className={"text-xs text-gray-500"}/>
                             </div>
 
-                            <p>{comment.comment}</p>
+                            <p className={"dark:text-[#e7e9ea]"}>{comment?.text}</p>
 
                         </div>
                     </div>)}
