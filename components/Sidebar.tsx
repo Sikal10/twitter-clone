@@ -17,6 +17,9 @@ const Sidebar = () => {
             <SidebarOptions Icon={RiFileList3Line} title={"Lists"}/>
             <SidebarOptions Icon={IoPersonOutline} title={"Profile"}/>
             <SidebarOptions Icon={IoEllipsisHorizontalCircle} title={"More"}/>
+
+            {/* ----- Dark Mode------- */}
+
         </div>
     );
 };

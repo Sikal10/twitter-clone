@@ -23,7 +23,7 @@ const Feed = ({tweets: tweetsProp}: Props) => {
     }
 
     return (
-        <div className={"col-span-7 lg:col-span-5 border-x"}>
+        <div className={"col-span-7 lg:col-span-5 border-x max-h-screen overflow-scroll"}>
             <div className={"flex justify-between items-center"}>
                 <h1 className={"p-5 pb-0 text-xl font-bold"}>Home</h1>
 
@@ -31,7 +31,7 @@ const Feed = ({tweets: tweetsProp}: Props) => {
             </div>
 
             <div>
-                <TweetBox />
+                <TweetBox setTweets={setTweets} />
             </div>
 
             <div>

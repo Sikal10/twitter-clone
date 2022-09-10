@@ -12,10 +12,11 @@ interface Props {
 }
 
 const Tweet = ({tweet}: Props) => {
+    console.log(tweet);
     const [comments, setComments] = useState<Comment[]>([]);
 
     const reFetchComments = async () => {
-        const comments: Comment[] = await fetchComments(tweet._id);
+        const comments: Comment[] = await fetchComments(tweet?._id);
         setComments(comments);
     }
 
@@ -26,20 +27,20 @@ const Tweet = ({tweet}: Props) => {
     return (
         <div className={"border-y border-gray-100 p-5"}>
             <div className={"flex gap-4"}>
-                <img className={"w-12 h-12 object-cover rounded-full"} src={tweet.profileImg} alt=""/>
+                <img className={"w-12 h-12 object-cover rounded-full"} src={tweet?.profileImg} alt=""/>
 
                 <div>
                     <div className={"flex items-center space-x-1"}>
-                        <p className={"text-xl font-semibold"}>{tweet.username}</p>
+                        <p className={"text-xl font-semibold"}>{tweet?.username}</p>
 
-                        <p className={"hidden sm:inline text-gray-400 text-xs"}>@{tweet.username.replace(/\s+/g, "").toLowerCase()} · </p>
+                        <p className={"hidden sm:inline text-gray-400 text-xs"}>@{tweet?.username?.replace(/\s+/g, "").toLowerCase()} · </p>
 
-                        <TimeAgo date={tweet._createdAt} className={"text-xs text-gray-500"}/>
+                        <TimeAgo date={tweet?._createdAt} className={"text-xs text-gray-500"}/>
                     </div>
 
-                    <p className={"mt-2 mb-3"}>{tweet.text}</p>
+                    <p className={"mt-2 mb-3"}>{tweet?.text}</p>
 
-                    {tweet.image && <img className={"m-5 ml-0 mb-1 md:max-w-[400px] md:w-[400px] md:h-[350px] rounded-lg object-cover shadow-sm"} src={tweet.image} alt=""/>}
+                    {tweet?.image && <img className={"m-5 ml-0 mb-1 md:max-w-[400px] md:w-[400px] md:h-[350px] rounded-lg object-cover shadow-sm"} src={tweet.image} alt=""/>}
                 </div>
 
             </div>
