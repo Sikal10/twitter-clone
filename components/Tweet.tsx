@@ -5,8 +5,7 @@ import { HiOutlineHeart} from "react-icons/hi";
 import {RiChat1Line} from "react-icons/ri";
 import {AiOutlineRetweet} from "react-icons/ai";
 import {MdOutlineFileUpload} from "react-icons/md";
-import {fetchComments, fetchTweets} from "../utils";
-import {session} from "next-auth/core/routes";
+import {fetchComments} from "../utils";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
 
